@@ -5,6 +5,7 @@ import { View, TextInput, TouchableOpacity, Text, StyleSheet, SafeAreaView, Acti
 const users = [
     { email: 'bekzod@gmail.com', password: '1' },
     { email: 'behruz@gmail.com', password: '1' },
+    { email: 'sadi@gmail.com', password: '1' }
 ];
 
 const LoginScreen = ({ setUser }) => {
