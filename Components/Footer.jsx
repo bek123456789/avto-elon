@@ -1,62 +1,103 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Import the navigation hook
 
 const Footer = () => {
-  const navigation = useNavigation();
+    const navigation = useNavigation(); // Initialize the navigation hook
+    const [activeIndex, setActiveIndex] = useState(null);
 
-  return (
-    <View style={styles.footer}>
-      <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Avtoelon')}>
-        <Ionicons name="car" size={30} color="#007bff" />
-        <Text style={styles.footerText}>Avtoelon.uz</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Saqlangan')}>
-        <Ionicons name="bookmark" size={30} color="#007bff" />
-        <Text style={styles.footerText}>Saqlangan</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Sotish')}>
-        <Ionicons name="cash" size={30} color="#007bff" />
-        <Text style={styles.footerText}>Sotish</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Chat')}>
-        <Ionicons name="chatbubbles" size={30} color="#007bff" />
-        <Text style={styles.footerText}>Chat</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('Kabinet')}>
-        <Ionicons name="person" size={30} color="#007bff" />
-        <Text style={styles.footerText}>Kabinet</Text>
-      </TouchableOpacity>
-    </View>
-  );
+    const handlePress = (index, route) => {
+        setActiveIndex(index);
+        navigation.navigate(route); // Navigate to the selected route
+    };
+
+    const icons = [
+        {
+            uri: 'https://img.icons8.com/ios-filled/50/000000/home.png',
+            text: 'Avtoelon.uz',
+            route: 'Avtoelon', // Route for navigation
+        },
+        {
+            uri: 'https://img.icons8.com/ios-filled/50/000000/like.png',
+            text: 'Saqlangan',
+            route: 'Saqlangan', // Route for navigation
+        },
+        {
+            uri: 'https://img.icons8.com/ios-filled/50/0000FF/plus.png',
+            text: 'Sotish',
+            route: 'Sotish', // Route for navigation
+            activeUri: 'https://img.icons8.com/ios-filled/50/0000FF/plus.png',
+        },
+        {
+            uri: 'https://img.icons8.com/ios-filled/50/000000/chat.png',
+            text: 'Chat',
+            route: 'Chat', // Route for navigation
+        },
+        {
+            uri: 'https://img.icons8.com/ios-filled/50/000000/user.png',
+            text: 'Kabinet',
+            route: 'Kabinet', // Route for navigation
+        },
+    ];
+
+    return (
+        <View style={styles.footerContainer}>
+            {icons.map((item, index) => (
+                <TouchableOpacity
+                    key={index}
+                    style={styles.navItem}
+                    onPress={() => handlePress(index, item.route)} // Pass the route to handlePress
+                >
+                    <Image
+                        source={{
+                            uri: item.text === 'Sotish'
+                                ? item.activeUri // "Sotish" icon always blue
+                                : activeIndex === index
+                                ? item.uri.replace('000000', '000000') // Active (black) icon
+                                : item.uri.replace('000000', '808080'), // Default (gray) icon
+                        }}
+                        style={styles.icon}
+                    />
+                    <Text
+                        style={[styles.navText, {
+                            color: item.text === 'Sotish'
+                                ? '#0000FF' // "Sotish" text always blue
+                                : activeIndex === index
+                                ? '#000' // Active text (black)
+                                : '#808080', // Default text (gray)
+                        }]}
+                    >
+                        {item.text}
+                    </Text>
+                </TouchableOpacity>
+            ))}
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-  footer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: '#fff',  // White background
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingVertical: 10,
-    zIndex: 10,
-    shadowColor: '#000', // Optional: add shadow for iOS
-    shadowOffset: { width: 0, height: -2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,  // For Android shadow
-  },
-  footerButton: {
-    alignItems: 'center',
-  },
-  footerText: {
-    color: '#007bff', // Blue text color
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
+    footerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center', // 'space-center' was incorrect, 'center' is correct
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        paddingVertical: 10,
+        borderTopWidth: 1,
+        borderColor: '#ccc',
+        paddingLeft: 10,
+    },
+    navItem: {
+        alignItems: 'center',
+    },
+    icon: {
+        width: 24,
+        height: 24,
+        marginBottom: 5,
+        marginHorizontal: 27,
+    },
+    navText: {
+        fontSize: 12,
+    },
 });
 
 export default Footer;

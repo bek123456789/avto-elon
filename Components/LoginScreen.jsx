@@ -28,7 +28,7 @@ const LoginScreen = ({ setUser }) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.innerContainer}>
-                <Text style={styles.title}>Login</Text>
+                <Text style={styles.title}>Avtoelon.uz</Text>
                 {error ? <Text style={styles.error}>{error}</Text> : null}
                 <TextInput
                     style={styles.input}

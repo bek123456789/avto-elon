@@ -4,13 +4,13 @@ import Icon from 'react-native-vector-icons/FontAwesome'; // Importing FontAweso
 
 const AvtoelonScreen = () => {
   const handlePress = (section) => {
-    // Handle button press for each section
+ 
     console.log(`${section} button pressed!`);
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Header section */}
+   
       <View style={styles.header}>
         <Text style={styles.headerText}>Avtoelon.uz</Text>
         <TouchableOpacity onPress={() => handlePress('News')} style={styles.headerButton}>
@@ -18,17 +18,17 @@ const AvtoelonScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Sell button at the top */}
+
       <TouchableOpacity onPress={() => handlePress('Sell')} style={styles.sellButton}>
         <Text style={styles.sellButtonText}>Sotish</Text>
       </TouchableOpacity>
 
-      {/* Announcement Section */}
+
       <View style={styles.announcement}>
         <Text style={styles.announcementText}>Elonlar</Text>
       </View>
 
-      {/* Buttons for different sections */}
+
       <View style={styles.buttonsContainer}>
         <TouchableOpacity onPress={() => handlePress('Cars')} style={styles.sectionButton}>
           <Icon name="car" size={60} color="white" />
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   announcement: {
     width: '100%',
     padding: 20,
-    backgroundColor: '#cce0ff', // Light blue background for announcement section
+    backgroundColor: '#cce0ff',
     alignItems: 'center',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -192,14 +192,14 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#fff', // White text on all buttons
+    color: '#fff',
     marginTop: 12,
     textAlign: 'center',
   },
   text: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333', // Dark color for the main text
+    color: '#333',
     marginTop: 30,
     textAlign: 'center',
   },
