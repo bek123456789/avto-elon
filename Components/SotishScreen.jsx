@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import Sell from './Sell'; // Adjust the path to where the Sell component is located
 
 const SotishScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Sell your items here!</Text>
+      <Sell /> {/* Using the Sell component here */}
     </View>
   );
 };
@@ -12,12 +13,7 @@ const SotishScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    backgroundColor: '#f9f9f9', // Optional: Matching Sell component's background color
   },
 });
 

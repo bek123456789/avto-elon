@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Importing FontAwesome icons
+import Icon from 'react-native-vector-icons/FontAwesome';   
 
 const AvtoelonScreen = () => {
   const handlePress = (section) => {

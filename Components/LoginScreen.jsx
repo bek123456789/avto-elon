@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet, SafeAreaView, ActivityIndicator } from 'react-native';
 
-// Hardcoded users array
-const users = [
-    { email: 'bekzod@gmail.com', password: '1' },
-    { email: 'behruz@gmail.com', password: '1' },
-    { email: 'sadi@gmail.com', password: '1' }
-];
+const BASE_URL = 'https://avto-elon-node.onrender.com'; // Updated URL
 
 const LoginScreen = ({ setUser }) => {
     const [email, setEmail] = useState('');
@@ -14,14 +9,36 @@ const LoginScreen = ({ setUser }) => {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         setLoading(true);
-        const user = users.find(u => u.email === email && u.password === password);
-        if (user) {
-            setUser(user);
-            setLoading(false);
-        } else {
-            setError('Invalid email or password');
+        setError(''); // Clear previous errors
+        try {
+            // Send email and password in the request body as JSON
+            const response = await fetch(`${BASE_URL}/api/users`, {
+                method: 'GET', // Fetch all users (assuming backend returns users with this GET request)
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                setError('Error fetching users');
+                setLoading(false);
+                return;
+            }
+
+            const users = await response.json();
+            const user = users.find((u) => u.email === email && u.password === password); // Find user by email and password
+
+            if (user) {
+                setUser(user); // Successfully log in
+            } else {
+                setError('Invalid email or password');
+            }
+        } catch (err) {
+            setError('Error logging in. Please try again.');
+            console.error(err);
+        } finally {
             setLoading(false);
         }
     };

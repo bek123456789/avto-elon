@@ -1,33 +1,32 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Alert } from 'react-native';
+import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
 
-const SignUpScreen = ({ navigation, users }) => {
+const SignUpScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleSignUp = () => {
-    if (users.find(u => u.email === email)) {
-      setError('User with this email already exists');
-    } else if (!email || !password) {
-      setError('Please fill out all fields');
-    } else {
-      users.push({ email, password });
-      Alert.alert('Success', 'Account created successfully');
-      navigation.navigate('Login');
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      setError('Please enter a valid email.');
+      return;
     }
+
+    // Simulate sign up (save email, etc.)
+    // After successful signup, you might want to redirect to login or home
+    setError('');
+    console.log('User signed up with email:', email);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Create Account</Text>
-      {error ? <Text style={styles.error}>{error}</Text> : null}
       <TextInput
         style={styles.input}
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
-        keyboardType="email-address"
       />
       <TextInput
         style={styles.input}
@@ -36,8 +35,8 @@ const SignUpScreen = ({ navigation, users }) => {
         onChangeText={setPassword}
         secureTextEntry
       />
+      {error && <Text style={styles.errorText}>{error}</Text>}
       <Button title="Sign Up" onPress={handleSignUp} />
-      <Button title="Back to Login" onPress={() => navigation.navigate('Login')} />
     </View>
   );
 };
@@ -46,25 +45,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 20,
+    padding: 16,
   },
   input: {
-    borderWidth: 1,
+    height: 40,
     borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    marginVertical: 10,
+    borderWidth: 1,
+    marginBottom: 16,
+    paddingLeft: 8,
   },
-  error: {
+  errorText: {
     color: 'red',
-    textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 16,
   },
 });
 
