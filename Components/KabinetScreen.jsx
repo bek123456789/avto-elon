@@ -10,7 +10,7 @@ const KabinetStack = createStackNavigator();
 
 const KabinetMainScreen = ({ navigation }) => {
   const handleLoginPress = () => {
-    navigation.navigate('Login'); // Навигация на экран логина
+    navigation.navigate('Login');
   };
 
   return (
@@ -24,7 +24,7 @@ const KabinetMainScreen = ({ navigation }) => {
 
       <TouchableOpacity style={styles.loginButton} onPress={handleLoginPress}>
         <Text style={styles.loginButtonText}>Войти по номеру телефона</Text>
-      </TouchableOpacity>
+      </TouchableOpacity>qa
 
       <Text style={styles.footer}>avtoelon.uz</Text>
       <Text style={styles.version}>Версия 24.11.30 (204)</Text>
